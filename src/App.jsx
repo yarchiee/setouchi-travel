@@ -1,4 +1,64 @@
-import { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
+
+/* ───────── ICONS (手繪風格單色線條) ───────── */
+const I = {
+    plane: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16v-2a4 4 0 0 0-4-4H8l-4-6" /><path d="M3 18h3" /><path d="M6 12l-3 6" /><path d="M8 10V6c0-.55.45-1 1-1h2" /><path d="M14 10l7-3" /><path d="M10 18h11" /></svg>,
+    train: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 19V5c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14" /><path d="M6 11h12" /><path d="M6 7h12" /><circle cx="9" cy="15" r="1.5" /><circle cx="15" cy="15" r="1.5" /><path d="M7 19l-2 3" /><path d="M17 19l2 3" /></svg>,
+    bus: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18v2" /><path d="M19 18v2" /><path d="M5 18H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2-2v8a2 2 0 0 1-2 2h-1" /><path d="M16 18H8" /><path d="M2 10h20" /><circle cx="7" cy="14" r="1.5" /><circle cx="17" cy="14" r="1.5" /></svg>,
+    ferry: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 17c1.5 2 4 3 6 3s3.5-1 6-3c2.5 2 4.5 3 6 3" /><path d="M5 14l2-6h10l2 6" /><path d="M12 8V4" /><path d="M9 4h6" /></svg>,
+    bike: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="5.5" cy="17.5" r="3" /><circle cx="18.5" cy="17.5" r="3" /><path d="M12 17.5l-3.5-7 5-3.5" /><path d="M15.5 17.5l-3-10.5" /><circle cx="14" cy="5" r="1.5" /></svg>,
+    walk: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="4.5" r="2" /><path d="M7 21l3-9" /><path d="M15 21l-1-6" /><path d="M10 12l4-4" /><path d="M9.5 8l5 4" /></svg>,
+    food: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4v16" /><path d="M5 10c3 0 4-2 4-6" /><path d="M5 10c-3 0-4-2-4-6" /><path d="M19 4v16" /><path d="M19 9a3 3 0 0 1-3-3V4" /></svg>,
+    art: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3c-5 0-9 4-9 8.5 0 4 3 7.5 7 7.5h1.5c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5c0 0 8 0 8-7 0-5.5-3-12-7.5-12z" /><circle cx="8" cy="10" r="1.5" /><circle cx="12" cy="7" r="1.5" /><circle cx="16" cy="10" r="1.5" /></svg>,
+    pin: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>,
+    star: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l2.5 6.5L21 10l-5 4.5 1.5 6.5-5.5-3.5L6.5 21l1.5-6.5L3 10l6.5-.5L12 3z" /></svg>,
+    hotel: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V8l7-4 7 4v13" /><path d="M9 21v-5h6v5" /><path d="M10 10h.01" /><path d="M14 10h.01" /></svg>,
+    bag: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3" /><path d="M9 5a3 3 0 0 1 6 0" /><path d="M14 11h.01" /></svg>,
+    plus: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>,
+    image: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg>,
+    x: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18" /><path d="M6 6l12 12" /></svg>,
+    chevron: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3.5l4 3.5-4 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    back: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3.5L5 7l4 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    clock: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 6v6l4 2" /></svg>,
+    camera: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3.5" /></svg>,
+    ticket: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9a3 3 0 0 1 0 6v4h20v-4a3 3 0 0 1 0-6V5H2v4z" /><path d="M9 5v14" strokeDasharray="3 3" /></svg>,
+    museum: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V10" /><path d="M19 21V10" /><path d="M9 21v-6h6v6" /><path d="M12 3L3 10h18L12 3z" /></svg>,
+    calendar: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h18" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /></svg>,
+    info: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>,
+};
+
+const TeshimaSchedule = () => (
+    <div style={{ marginTop: 8, padding: "8px 0", borderTop: "1px dashed var(--ln)" }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+            {I.ferry} 豐島高速船時刻表 (3/9)
+        </p>
+        <div style={{ marginBottom: 12 }}>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "var(--t1)", marginBottom: 6, display: "flex", justifyContent: "space-between" }}>
+                <span>高松港 ➝ 家浦港</span>
+                <span style={{ color: "var(--li)", fontWeight: 400 }}>經由：直島（本村）</span>
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, fontSize: 12, color: "var(--mu)", textAlign: "center" }}>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>07:41 → 08:16</div>
+                <div style={{ padding: "6px 0", background: "var(--acc)", color: "#fff", borderRadius: 6, fontWeight: 600 }}>09:07 → 09:57</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>16:25 → 17:00</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>18:03 → 18:38</div>
+            </div>
+        </div>
+        <div>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "var(--t1)", marginBottom: 6, display: "flex", justifyContent: "space-between" }}>
+                <span>家浦港 ➝ 高松港</span>
+                <span style={{ color: "var(--li)", fontWeight: 400 }}>經由：直島（本村）</span>
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, fontSize: 12, color: "var(--mu)", textAlign: "center" }}>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>07:00 → 07:35</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>08:20 → 08:55</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>15:10 → 16:00</div>
+                <div style={{ padding: "6px 0", background: "var(--acc)", color: "#fff", borderRadius: 6, fontWeight: 600 }}>17:20 → 17:55</div>
+            </div>
+        </div>
+    </div>
+);
 
 /* ───────── 9 DAYS OVERVIEW ───────── */
 const DAYS_OVERVIEW = [
@@ -39,7 +99,7 @@ const DAYS_DETAIL = {
         sections: [
             {
                 title: "去程", rows: [
-                    { time: "07:40", event: "JR高松站出發", info: "步行至高松港", ic: "walk" },
+                    { time: "07:30", event: "前往渡輪售票處", info: "步行至高松港", ic: "walk", link: "https://maps.app.goo.gl/nVWkJZVxeUjQfhJE7?g_st=in", place: "高松港渡輪售票處", extra: "住宿到渡輪售票處導航" },
                     { time: "08:12", event: "高松港出發", transport: "四國汽船｜渡輪", info: "約50分・¥530", hl: true, place: "高松港", ic: "ferry", extra: "建議上甲板看風景，到港前 10 分鐘回座位。" },
                     { time: "09:02", event: "抵達直島宮浦港", place: "直島宮浦港", ic: "pin" },
                 ]
@@ -48,9 +108,10 @@ const DAYS_DETAIL = {
                 title: "直島行程", rows: [
                     { time: "09:10", event: "租電動自行車", info: "約¥1,500/日", ic: "bike", extra: "港口出來右手邊就有租車店。島上坡道多，電動車是必須。" },
                     { time: "09:15", event: "紅南瓜", info: "免費", place: "直島 赤かぼちゃ", ic: "art", extra: "就在碼頭旁邊，可走進南瓜裡拍照。早上人少。" },
-                    { time: "10:00", event: "地中美術館", info: "需預約・¥2,100", hl: true, place: "地中美術館", ic: "star", extra: "只靠自然光照明。必看：莫內睡蓮廳、James Turrell、Walter De Maria。禁止拍照。" },
+                    { time: "10:30", event: "地中美術館", info: "已預約", hl: true, place: "地中美術館", ic: "star", extra: "只靠自然光照明。必看：莫內睡蓮廳、James Turrell、Walter De Maria。禁止拍照。" },
                     { time: "12:00", event: "李禹煥美術館", info: "¥1,050", place: "李禹煥美術館", ic: "art", extra: "安藤忠雄設計，戶外廣場的石頭與鐵板作品值得細看。" },
-                    { time: "13:00", event: "Benesse House 午餐", place: "ベネッセハウス", ic: "food", extra: "餐廳可看海，午餐套餐約 ¥1,500–2,500。" },
+                    { time: "13:00", event: "午餐", ic: "food" },
+                    { time: "14:00", event: "杉本博司藝廊 時間的迴廊", info: "已預約", place: "杉本博司ギャラリー 時の回廊", ic: "art", extra: "包含玻璃茶室「聞鳥庵」。建議預留 1 小時。" },
                     { time: "15:00", event: "家 Project", info: "共通券 ¥1,050", place: "家プロジェクト 直島", ic: "art", extra: "6 處藝術空間：角屋、南寺、護王神社、石橋、碁會所、はいしゃ。南寺需排隊，建議先去。" },
                     { time: "16:00", event: "黃南瓜", place: "直島 黄かぼちゃ", ic: "art", extra: "直島最有名的地標，下午順光拍照最美。" },
                     { time: "16:30", event: "還車", ic: "bike" },
@@ -60,7 +121,7 @@ const DAYS_DETAIL = {
                 title: "回程", rows: [
                     { time: "17:00", event: "直島出發", transport: "四國汽船｜渡輪", info: "約60分・¥530", hl: true, ic: "ferry", extra: "最後一班渡輪，務必不要錯過！" },
                     { time: "18:00", event: "抵達高松港", ic: "pin" },
-                    { time: "18:30", event: "晚餐：うどんバカ一代", place: "うどんバカ一代", ic: "food", extra: "招牌「釜バターうどん」奶油烏龍麵。" },
+                    { time: "18:30", event: "晚餐", ic: "food" },
                     { time: "20:00", event: "返回住宿", ic: "hotel", extra: "回小屋休息，明天要早起去豐島。" },
                 ]
             },
@@ -73,39 +134,35 @@ const DAYS_DETAIL = {
         sections: [
             {
                 title: "高松", collapsible: true, rows: [
-                    { time: "06:30", event: "退房・寄放大行李", info: "JR高松站置物櫃", ic: "bag", extra: "大行李寄 JR 高松站置物櫃（¥600-800），只帶輕便背包去豐島。" },
-                    { time: "07:00", event: "前往高松港", info: "步行約10分", ic: "walk" },
-                    { time: "07:41", event: "高松港出發", transport: "豐島渡輪｜高速船", info: "約35分・¥1,380", hl: true, place: "高松港", ic: "ferry" },
+                    { time: "08:00", event: "退房・寄放大行李", info: "JR高松站置物櫃", ic: "bag", extra: "大行李寄 JR 高松站置物櫃（¥600-800），只帶輕便背包去豐島。" },
+                    { time: "08:30", event: "前往高速船售票處", info: "步行約10分", ic: "walk", link: "https://maps.app.goo.gl/QSFYji95jdFp5rQWA?g_st=in", place: "高松港高速船售票處", extra: "⚠️ 注意：高速船與渡輪搭乘處不同（距離約 5 分鐘），請務必確認地點。" },
+                    { time: "09:07", event: "高松港出發", transport: "豐島渡輪｜高速船", info: "約35分・¥1,380", hl: true, place: "高松港", ic: "ferry", extra: <TeshimaSchedule /> },
                 ]
             },
             {
                 title: "豐島", collapsible: true, rows: [
-                    { time: "08:16", event: "抵達豐島家浦港", place: "豐島家浦港", ic: "pin" },
-                    { time: "08:30", event: "租電動自行車", info: "約¥1,500/日", ic: "bike", extra: "島上坡道比直島更陡，電動車必備。" },
-                    { time: "08:45", event: "豐島橫尾館", info: "¥520", place: "豊島横尾館", ic: "art", extra: "橫尾忠則的作品，老民宅改建，紅色玻璃很有特色。" },
-                    { time: "09:30", event: "前往唐櫃地區", info: "騎車約20分（上坡）", ic: "bike" },
-                    { time: "10:00", event: "豐島美術館", info: "需預約・¥1,570", hl: true, place: "豊島美術館", ic: "star", extra: "內藤禮×西澤立衛。水滴藝術裝置，禁止拍照。建議停留 1 小時慢慢感受。" },
-                    { time: "11:30", event: "唐櫃梯田散步", ic: "walk", extra: "拍照絕佳點，俯瞰瀨戶內海。" },
-                    { time: "12:00", event: "島廚房午餐", place: "島キッチン", ic: "food", extra: "地產地消料理，建議預約或早點到。" },
-                    { time: "13:00", event: "心臟音博物館", info: "¥520", place: "心臓音のアーカイブ", ic: "art", extra: "可錄下自己的心跳聲。" },
-                    { time: "14:00", event: "返回家浦港・還車", info: "騎車約20分", ic: "bike" },
-                    { time: "15:10", event: "豐島家浦港出發", transport: "豐島渡輪｜高速船", info: "經直島・約50分", hl: true, ic: "ferry" },
+                    { time: "09:42", event: "抵達豐島家浦港", place: "豐島家浦港", ic: "pin" },
+                    { time: "09:50", event: "租電動自行車", info: "約¥1,500/日", ic: "bike", extra: "島上坡道比直島更陡，電動車必備。" },
+                    { time: "10:10", event: "豐島橫尾館", info: "¥520", place: "豊島横尾館", ic: "art", extra: "橫尾忠則的作品，老民宅改建，紅色玻璃很有特色。" },
+                    { time: "11:00", event: "前往唐櫃地區", info: "騎車約20分（上坡）", ic: "bike" },
+                    { time: "12:00", event: "島廚房午餐", place: "島キッチン", info: "已預約", ic: "food", extra: "地產地消料理，建議預約或早點到。" },
+                    { time: "13:00", event: "唐櫃梯田散步", ic: "walk", extra: "拍照絕佳點，俯瞰瀨戶內海。" },
+                    { time: "13:30", event: "豐島美術館", info: "已預約", hl: true, place: "豊島美術館", ic: "star", extra: "內藤禮×西澤立衛。水滴藝術裝置，禁止拍照。建議停留 1 小時慢慢感受。" },
+                    { time: "14:30", event: "心臟音博物館", info: "¥520", place: "心臓音のアーカイブ", ic: "art", extra: "可錄下自己的心跳聲。" },
+                    { time: "15:30", event: "返回家浦港・還車", info: "騎車約30分", ic: "bike" },
+                    { time: "16:00", event: "港口咖啡廳休息", place: "SEA RE:", ic: "food", extra: "等船時可以喝杯咖啡。" },
+                    { time: "17:20", event: "豐島家浦港出發", transport: "豐島渡輪｜高速船", info: "約35分", hl: true, ic: "ferry", extra: <TeshimaSchedule /> },
                 ]
             },
             {
                 title: "移動至廣島", collapsible: true, rows: [
-                    { time: "16:00", event: "抵達高松港・取行李", info: "¥1,380", ic: "pin" },
-                    { time: "16:40", event: "JR高松站出發", transport: "JR 快速 Marine Liner 48號", info: "岡山行", hl: true, ic: "train", extra: "JR Pass 第一天啟用！" },
-                    { time: "17:32", event: "抵達JR岡山站", info: "約52分", place: "JR岡山駅", ic: "train" },
-                    { time: "17:47", event: "JR岡山站出發", transport: "山陽新幹線 のぞみ41號", info: "博多行", hl: true, ic: "train" },
-                    { time: "18:23", event: "抵達JR廣島站", info: "約36分", place: "JR広島駅", ic: "train" },
-                ]
-            },
-            {
-                title: "廣島", collapsible: true, rows: [
-                    { time: "18:40", event: "Check in 格蘭比亞", ic: "hotel", extra: "JR 廣島站南口步行 1 分鐘。" },
-                    { time: "19:30", event: "晚餐：廣島燒", place: "みっちゃん総本店", ic: "food", extra: "推薦「みっちゃん總本店」，廣島燒名店。" },
-                    { time: "21:00", event: "返回住宿", ic: "hotel" },
+                    { time: "17:55", event: "抵達高松港・取行李", info: "¥1,380", ic: "pin" },
+                    { time: "18:40", event: "JR高松站出發", transport: "JR 快速 Marine Liner 56號", info: "岡山行", hl: true, ic: "train", extra: "JR Pass 第一天啟用！" },
+                    { time: "19:32", event: "抵達JR岡山站", info: "約52分", place: "JR岡山駅", ic: "train" },
+                    { time: "19:54", event: "JR岡山站出發", transport: "山陽新幹線 Sakura 569號", info: "鹿兒島中央行", hl: true, ic: "train" },
+                    { time: "20:33", event: "抵達JR廣島站", place: "広島駅", ic: "pin" },
+                    { time: "20:50", event: "Check in 廣島格蘭比亞", place: "ホテルグランヴィア広島", ic: "hotel", extra: "飯店直通新幹線口，非常方便。" },
+                    { time: "21:10", event: "晚餐", ic: "food" },
                 ]
             },
         ],
@@ -123,7 +180,7 @@ const DAYS_DETAIL = {
                     { time: "09:00", event: "抵達原爆圓頂前站", info: "約15分・¥220", ic: "pin" },
                     { time: "09:00", event: "廣島和平紀念資料館", info: "¥200・約2hr", hl: true, place: "広島平和記念資料館", ic: "star", extra: "非常震撼的展覽，建議預留充足時間。" },
                     { time: "11:00", event: "原爆圓頂・和平公園", place: "原爆ドーム", ic: "art", extra: "丹下健三設計的和平公園，世界遺產。" },
-                    { time: "12:00", event: "午餐：長田屋", place: "長田屋", ic: "food", extra: "廣島燒名店，就在和平公園附近。" },
+                    { time: "12:00", event: "午餐", ic: "food" },
                 ]
             },
             {
@@ -165,7 +222,7 @@ const DAYS_DETAIL = {
                     { time: "10:30", event: "海上大鳥居", place: "大鳥居", ic: "art", extra: "退潮時可走近鳥居。" },
                     { time: "11:00", event: "彌山纜車", transport: "紅葉谷線", info: "來回 ¥1,840", place: "宮島ロープウェイ", ic: "train", extra: "搭纜車上山，再步行約 30 分登頂。" },
                     { time: "12:30", event: "彌山山頂展望台", place: "弥山展望台", ic: "pin", extra: "瀨戶內海絕景，值得爬上去。" },
-                    { time: "13:30", event: "午餐：穴子飯", place: "うえの", ic: "food", extra: "宮島名物星鰻飯，推薦「うえの」。" },
+                    { time: "13:30", event: "午餐", ic: "food" },
                     { time: "14:30", event: "表參道商店街", place: "表参道商店街", ic: "walk", extra: "紅葉饅頭、烤牡蠣，邊走邊吃。" },
                     { time: "15:30", event: "大願寺・五重塔", place: "大願寺", ic: "art" },
                 ]
@@ -176,7 +233,7 @@ const DAYS_DETAIL = {
                     { time: "16:10", event: "抵達宮島口棧橋", ic: "pin" },
                     { time: "16:20", event: "JR宮島口站出發", transport: "JR山陽本線｜普通", info: "廣島行", ic: "train" },
                     { time: "16:47", event: "抵達JR廣島站", info: "約27分・JR Pass", ic: "train" },
-                    { time: "17:30", event: "自由活動・晚餐", ic: "food" },
+                    { time: "17:30", event: "晚餐", ic: "food" },
                     { time: "20:00", event: "返回住宿", ic: "hotel" },
                 ]
             },
@@ -205,7 +262,7 @@ const DAYS_DETAIL = {
                     { time: "10:00", event: "千光寺・展望台", place: "千光寺", ic: "star", extra: "眺望瀨戶內海和尾道水道，絕景！" },
                     { time: "10:30", event: "貓之細道・文學小路", info: "下山步行約30分", place: "猫の細道", ic: "walk", extra: "沿途有很多貓咪石和文學碑，慢慢走很有味道。" },
                     { time: "11:30", event: "本通商店街散策", place: "尾道本通り商店街", ic: "walk" },
-                    { time: "12:30", event: "尾道拉麵午餐", place: "朱華園", ic: "food", extra: "尾道拉麵特色是小魚乾湯底加豬背油。" },
+                    { time: "12:30", event: "午餐", ic: "food" },
                     { time: "14:00", event: "海岸通散步", ic: "walk" },
                 ]
             },
@@ -216,7 +273,7 @@ const DAYS_DETAIL = {
                     { time: "16:05", event: "JR福山站出發", transport: "山陽新幹線｜さくら556號", info: "新大阪行", hl: true, ic: "train" },
                     { time: "16:25", event: "抵達JR岡山站", info: "約20分・JR Pass", place: "JR岡山駅", ic: "train" },
                     { time: "17:00", event: "Check in 皇冠假日", ic: "hotel" },
-                    { time: "18:00", event: "晚餐：デミカツ丼", ic: "food", extra: "岡山名物，豬排淋上特製醬汁。" },
+                    { time: "18:00", event: "晚餐", ic: "food" },
                     { time: "20:00", event: "返回住宿", ic: "hotel" },
                 ]
             },
@@ -271,7 +328,7 @@ const DAYS_DETAIL = {
             {
                 title: "倉敷美觀地區", collapsible: true, rows: [
                     { time: "10:00", event: "大原美術館", info: "¥2,000", hl: true, place: "大原美術館", ic: "star", extra: "日本最早的西洋美術館，收藏艾爾乔雷柯、莫內等大師作品。" },
-                    { time: "12:00", event: "午餐：町家咖啡廳", ic: "food", extra: "美觀地區有很多改建自老町家的咖啡廳。" },
+                    { time: "12:00", event: "午餐", ic: "food" },
                     { time: "13:30", event: "倉敷常春藤廣場", place: "倉敷アイビースクエア", ic: "art", extra: "紅磚建築配上常春藤，很有氣氛。" },
                     { time: "14:30", event: "倉敷川遊船", info: "約20分・¥500", place: "くらしき川舟流し", ic: "ferry", extra: "搭小船遊覽倉敷川，從水面欣賞白壁街景。" },
                     { time: "15:30", event: "商店街・倉敷帆布購物", place: "倉敷帆布", ic: "walk", extra: "倉敷帆布是當地特產，包包很耐用。" },
@@ -303,7 +360,7 @@ const DAYS_DETAIL = {
                     { time: "11:20", event: "JR高松站出發", transport: "JR高德線｜普通", info: "栗林公園北口行", ic: "train" },
                     { time: "11:23", event: "抵達栗林公園北口站", info: "約3分", ic: "pin" },
                     { time: "11:30", event: "栗林公園", info: "¥410・特別名勝", place: "栗林公園", ic: "star", extra: "日本三大名園之外的隱藏版，庭園造景非常精緻。" },
-                    { time: "13:00", event: "午餐：讚岐烏龍麵巡禮", place: "竹清", ic: "food", extra: "推薦「竹清」或「がもう」，最後再吃一次讚岐烏龍麵！" },
+                    { time: "13:00", event: "午餐", ic: "food" },
                     { time: "15:00", event: "高松商店街採買伴手禮", place: "高松中央商店街", ic: "walk" },
                 ]
             },
@@ -470,7 +527,7 @@ const DAYS_DETAIL = {
                     { time: "09:20", event: "抵達JR倉敷站", info: "約17分", place: "JR倉敷駅", ic: "train" },
                     { time: "09:30", event: "步行至美觀地區", info: "約15分", ic: "walk" },
                     { time: "10:00", event: "大原美術館", info: "¥2,000", hl: true, place: "大原美術館", ic: "star", extra: "日本最早的西洋美術館，必看莫內、畢卡索等名作。" },
-                    { time: "12:00", event: "午餐：町家咖啡廳", ic: "food" },
+                    { time: "12:00", event: "午餐", ic: "food" },
                     { time: "13:30", event: "倉敷常春藤廣場", place: "倉敷アイビースクエア", ic: "art", extra: "紅磚建築，很好拍。" },
                     { time: "14:30", event: "倉敷川遊船", info: "約20分・¥500", place: "倉敷川", ic: "ferry", extra: "從川上欣賞白壁建築群。" },
                     { time: "15:30", event: "商店街・倉敷帆布購物", place: "倉敷美観地区", ic: "walk", extra: "倉敷帆布是當地名產。" },
@@ -503,7 +560,7 @@ const DAYS_DETAIL = {
             },
             {
                 title: "午餐・返程", collapsible: true, rows: [
-                    { time: "13:00", event: "午餐：讚岐烏龍麵", place: "竹清", ic: "food", extra: "推薦「竹清」或「がもう」。" },
+                    { time: "13:00", event: "午餐", ic: "food" },
                     { time: "15:00", event: "高松商店街採買伴手禮", place: "高松中央商店街", ic: "walk" },
                     { time: "16:00", event: "JR高松站取行李", ic: "bag" },
                     { time: "16:30", event: "JR高松站出發", transport: "琴空巴士｜機場連絡巴士", info: "高松機場行", ic: "bus" },
@@ -568,15 +625,15 @@ const TIPS = [
 const FERRY_SCHEDULE = [
     { date: "3/8（日）", route: "高松港 → 直島宮浦港", depart: "08:12", arrive: "09:02", company: "四國汽船｜渡輪", price: "¥530" },
     { date: "3/8（日）", route: "直島宮浦港 → 高松港", depart: "17:00", arrive: "18:00", company: "四國汽船｜渡輪", price: "¥530" },
-    { date: "3/9（一）", route: "高松港 → 豐島家浦港", depart: "07:41", arrive: "08:16", company: "豐島渡輪｜高速船", price: "¥1,380" },
-    { date: "3/9（一）", route: "豐島家浦港 → 高松港", depart: "15:10", arrive: "16:00", company: "豐島渡輪｜高速船", price: "¥1,380" },
+    { date: "3/9（一）", route: "高松港 → 豐島家浦港", depart: "09:07", arrive: "09:42", company: "豐島渡輪｜高速船", price: "¥1,380" },
+    { date: "3/9（一）", route: "豐島家浦港 → 高松港", depart: "17:20", arrive: "17:55", company: "豐島渡輪｜高速船", price: "¥1,380" },
     { date: "3/11（三）", route: "宮島口 → 宮島", depart: "09:15", arrive: "09:25", company: "JR 宮島渡輪", price: "JR Pass" },
     { date: "3/11（三）", route: "宮島 → 宮島口", depart: "16:00", arrive: "16:10", company: "JR 宮島渡輪", price: "JR Pass" },
 ];
 
 const JR_SCHEDULE = [
-    { date: "3/9（一）", route: "高松 → 岡山", depart: "16:40", arrive: "17:32", train: "Marine Liner 48號" },
-    { date: "3/9（一）", route: "岡山 → 廣島", depart: "17:47", arrive: "18:23", train: "のぞみ 41號" },
+    { date: "3/9（一）", route: "高松 → 岡山", depart: "18:40", arrive: "19:32", train: "Marine Liner 56號" },
+    { date: "3/9（一）", route: "岡山 → 廣島", depart: "19:54", arrive: "20:33", train: "さくら 569號" },
     { date: "3/11（三）", route: "廣島 → 宮島口", depart: "08:30", arrive: "08:58", train: "JR 山陽本線" },
     { date: "3/12（四）", route: "廣島 → 三原", depart: "08:24", arrive: "08:40", train: "こだま 840號" },
     { date: "3/12（四）", route: "三原 → 尾道", depart: "08:55", arrive: "09:08", train: "JR 山陽本線" },
@@ -588,41 +645,15 @@ const JR_SCHEDULE = [
 ];
 
 const TICKET_CATEGORIES = [
-    { id: "flight", name: "機票", icon: "✈️" },
-    { id: "jrpass", name: "JR Pass", icon: "🚄" },
-    { id: "museum", name: "美術館", icon: "🎨" },
-    { id: "ferry", name: "船票", icon: "🚢" },
-    { id: "hotel", name: "住宿", icon: "🏨" },
-    { id: "other", name: "其他", icon: "📄" },
+    { id: "flight", name: "機票", icon: "plane" },
+    { id: "jrpass", name: "JR Pass", icon: "train" },
+    { id: "museum", name: "美術館", icon: "art" },
+    { id: "ferry", name: "船票", icon: "ferry" },
+    { id: "hotel", name: "住宿", icon: "hotel" },
+    { id: "other", name: "其他", icon: "bag" },
 ];
 
-/* ───────── ICONS (手繪風格單色線條) ───────── */
-const I = {
-    plane: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16v-2a4 4 0 0 0-4-4H8l-4-6" /><path d="M3 18h3" /><path d="M6 12l-3 6" /><path d="M8 10V6c0-.55.45-1 1-1h2" /><path d="M14 10l7-3" /><path d="M10 18h11" /></svg>,
-    train: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 19V5c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14" /><path d="M6 11h12" /><path d="M6 7h12" /><circle cx="9" cy="15" r="1.5" /><circle cx="15" cy="15" r="1.5" /><path d="M7 19l-2 3" /><path d="M17 19l2 3" /></svg>,
-    bus: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18v2" /><path d="M19 18v2" /><path d="M5 18H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-1" /><path d="M16 18H8" /><path d="M2 10h20" /><circle cx="7" cy="14" r="1.5" /><circle cx="17" cy="14" r="1.5" /></svg>,
-    ferry: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 17c1.5 2 4 3 6 3s3.5-1 6-3c2.5 2 4.5 3 6 3" /><path d="M5 14l2-6h10l2 6" /><path d="M12 8V4" /><path d="M9 4h6" /></svg>,
-    bike: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="5.5" cy="17.5" r="3" /><circle cx="18.5" cy="17.5" r="3" /><path d="M12 17.5l-3.5-7 5-3.5" /><path d="M15.5 17.5l-3-10.5" /><circle cx="14" cy="5" r="1.5" /></svg>,
-    walk: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="4.5" r="2" /><path d="M7 21l3-9" /><path d="M15 21l-1-6" /><path d="M10 12l4-4" /><path d="M9.5 8l5 4" /></svg>,
-    food: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4v16" /><path d="M5 10c3 0 4-2 4-6" /><path d="M5 10c-3 0-4-2-4-6" /><path d="M19 4v16" /><path d="M19 9a3 3 0 0 1-3-3V4" /></svg>,
-    art: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3c-5 0-9 4-9 8.5 0 4 3 7.5 7 7.5h1.5c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5c0 0 8 0 8-7 0-5.5-3-12-7.5-12z" /><circle cx="8" cy="10" r="1.5" /><circle cx="12" cy="7" r="1.5" /><circle cx="16" cy="10" r="1.5" /></svg>,
-    pin: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>,
-    star: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l2.5 6.5L21 10l-5 4.5 1.5 6.5-5.5-3.5L6.5 21l1.5-6.5L3 10l6.5-.5L12 3z" /></svg>,
-    hotel: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V8l7-4 7 4v13" /><path d="M9 21v-5h6v5" /><path d="M10 10h.01" /><path d="M14 10h.01" /></svg>,
-    bag: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3" /><path d="M9 5a3 3 0 0 1 6 0" /><path d="M14 11h.01" /></svg>,
-    plus: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>,
-    image: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg>,
-    x: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18" /><path d="M6 6l12 12" /></svg>,
-    chevron: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3.5l4 3.5-4 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    back: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3.5L5 7l4 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    // 新增手繪風格圖示
-    clock: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 6v6l4 2" /></svg>,
-    camera: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3.5" /></svg>,
-    ticket: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9a3 3 0 0 1 0 6v4h20v-4a3 3 0 0 1 0-6V5H2v4z" /><path d="M9 5v14" strokeDasharray="3 3" /></svg>,
-    museum: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V10" /><path d="M19 21V10" /><path d="M9 21v-6h6v6" /><path d="M12 3L3 10h18L12 3z" /></svg>,
-    calendar: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h18" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /></svg>,
-    info: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>,
-};
+
 
 function Chev({ open }) {
     return (
@@ -637,7 +668,7 @@ function Chev({ open }) {
 function Row({ row, last }) {
     const [open, setOpen] = useState(false);
     const ex = !!row.extra, pl = !!row.place;
-    const canExpand = ex && !pl; // 可展開條件：有 extra 且沒有地圖連結
+    const canExpand = ex; // 可展開條件：有 extra
 
     const handleRowClick = () => {
         if (ex) setOpen(!open);
@@ -658,7 +689,7 @@ function Row({ row, last }) {
                 <span style={{ color: row.hl ? "var(--acc)" : "var(--li)", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 2 }}>{I[row.ic] || I.pin}</span>
                 <div style={{ paddingLeft: 6 }}>
                     {pl ? (
-                        <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(row.place)}`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
+                        <a href={row.link || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(row.place)}`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
                             style={{ fontSize: 15, fontWeight: row.hl ? 600 : 400, lineHeight: "22px", color: "var(--t1)", textDecoration: "none", backgroundImage: "linear-gradient(var(--ln2), var(--ln2))", backgroundSize: "100% 1px", backgroundPosition: "0 100%", backgroundRepeat: "no-repeat", paddingBottom: 1 }}>
                             {row.event}<span style={{ fontSize: 10, color: "var(--li)", marginLeft: 4 }}>↗</span>
                         </a>
@@ -666,10 +697,27 @@ function Row({ row, last }) {
                         <span style={{ fontSize: 15, fontWeight: row.hl ? 600 : 400, lineHeight: "22px", color: "var(--t1)" }}>{row.event}</span>
                     )}
                     {(row.transport || row.info) && (
-                        <p style={{ marginTop: 4, fontSize: 13, lineHeight: 1.5, color: "var(--mu)" }}>
-                            {row.transport && <span>{row.transport}</span>}
-                            {row.transport && row.info && <span style={{ margin: "0 6px", color: "var(--ln2)" }}>·</span>}
-                            {row.info && <span style={{ color: "var(--li)" }}>{row.info}</span>}
+                        <p style={{ marginTop: 6, fontSize: 13, lineHeight: 1.5, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 6 }}>
+                            {row.transport && (
+                                <span style={{ color: "var(--mu)", fontWeight: 400 }}>
+                                    {row.transport}
+                                </span>
+                            )}
+                            {row.info && (
+                                <span style={{
+                                    color: row.info === "已預約" ? "var(--acc)" : "var(--li)",
+                                    border: row.info === "已預約" ? "1px solid var(--acc)" : "none",
+                                    padding: row.info === "已預約" ? "0 6px" : 0,
+                                    borderRadius: 4,
+                                    fontSize: row.info === "已預約" ? 11 : 13,
+                                    fontWeight: row.info === "已預約" ? 500 : 400,
+                                    height: row.info === "已預約" ? 20 : "auto",
+                                    display: row.info === "已預約" ? "flex" : "inline",
+                                    alignItems: "center"
+                                }}>
+                                    {row.info}
+                                </span>
+                            )}
                         </p>
                     )}
                 </div>
@@ -681,7 +729,7 @@ function Row({ row, last }) {
             </div>
             {open && row.extra && (
                 <div style={{ padding: "0 18px 16px", paddingLeft: 102 }}>
-                    <p style={{ fontSize: 13.5, color: "var(--mu)", lineHeight: 1.85 }}>{row.extra}</p>
+                    <div style={{ fontSize: 13.5, color: "var(--mu)", lineHeight: 1.85 }}>{row.extra}</div>
                 </div>
             )}
         </div>
@@ -988,7 +1036,7 @@ function TicketsTab() {
             {/* Ticket List */}
             {grouped.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--li)" }}>
-                    <p style={{ fontSize: 36, marginBottom: 12 }}>🎫</p>
+                    <p style={{ fontSize: 36, marginBottom: 12, color: "var(--li)" }}>{I.ticket}</p>
                     <p style={{ fontSize: 14 }}>尚未新增票券</p>
                     <p style={{ fontSize: 12, marginTop: 4, lineHeight: 1.6 }}>可上傳機票、門票等<br />方便查看或出示給工作人員</p>
                 </div>
@@ -996,7 +1044,7 @@ function TicketsTab() {
                 grouped.map(group => (
                     <div key={group.id} style={{ marginBottom: 20 }}>
                         <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", padding: "6px 4px", display: "flex", alignItems: "center", gap: 6 }}>
-                            <span>{group.icon}</span> {group.name}
+                            <span style={{ color: "var(--acc)" }}>{I[group.icon]}</span> {group.name}
                         </p>
                         <div style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", overflow: "hidden" }}>
                             {group.tickets.map((t, i) => (
@@ -1036,7 +1084,7 @@ function TicketsTab() {
                                     color: newTicket.category === cat.id ? "#fff" : "var(--mu)",
                                     fontSize: 12, fontWeight: 500,
                                 }}>
-                                    {cat.icon} {cat.name}
+                                    <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I[cat.icon]} {cat.name}</span>
                                 </button>
                             ))}
                         </div>
@@ -1082,14 +1130,14 @@ function HotelsTab() {
             {HOTELS.map((h, i) => (
                 <div key={i} style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", padding: "16px", marginBottom: 12 }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                        <span style={{ fontSize: 24 }}>🏨</span>
+                        <span style={{ color: "var(--acc)" }}>{I.hotel}</span>
                         <div style={{ flex: 1 }}>
                             <p style={{ fontSize: 15, fontWeight: 600, color: "var(--t1)", lineHeight: 1.4 }}>{h.name}</p>
-                            <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px", marginTop: 8, fontSize: 12, color: "var(--mu)" }}>
-                                <span>📍 {h.location}</span>
-                                <span>📅 {h.dates}</span>
-                                <span>🌙 {h.nights} 晚</span>
-                                {h.breakfast && <span>🍳 含早餐</span>}
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px", marginTop: 8, fontSize: 12, color: "var(--mu)", alignItems: "center" }}>
+                                <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I.pin} {h.location}</span>
+                                <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I.calendar} {h.dates}</span>
+                                <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I.clock} {h.nights} 晚</span>
+                                {h.breakfast && <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I.food} 含早餐</span>}
                             </div>
                         </div>
                     </div>
@@ -1236,7 +1284,7 @@ function InfoTab() {
                         display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer",
                     }}
                 >
-                    <span>🚢 船班速查</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: 6 }}>{I.ferry} 船班速查</span>
                     <Chev open={openSections.ferry} />
                 </div>
                 {openSections.ferry && (
@@ -1272,7 +1320,7 @@ function InfoTab() {
                         display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer",
                     }}
                 >
-                    <span>🚄 JR 速查</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: 6 }}>{I.train} JR 速查</span>
                     <Chev open={openSections.jr} />
                 </div>
                 {openSections.jr && (
@@ -1345,7 +1393,7 @@ export default function App() {
 
             <header style={{ padding: "20px 20px 16px", background: "var(--card)", boxShadow: "var(--shadow)", flexShrink: 0 }}>
                 <p style={{ fontSize: 11, color: "var(--li)", letterSpacing: 1.5, marginBottom: 6 }}>2026.03.07 – 03.15</p>
-                <h1 style={{ fontSize: 20, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)" }}>瀨戶內海建築藝術之旅</h1>
+                <h1 style={{ fontSize: 20, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)" }}>四國九日遊</h1>
             </header>
 
             <div ref={ref} style={{ flex: 1, padding: "0 16px", paddingBottom: selectedDay ? 32 : 80, overflowY: "auto", animation: "fadeUp .25s ease" }}>
