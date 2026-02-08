@@ -1,0 +1,16 @@
+{
+    "name": "瀨戶內海建築藝術之旅",
+    "short_name": "瀨戶內海旅行",
+    "description": "2026年3月瀨戶內海建築藝術之旅行程規劃",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#F5F5F0",
+    "theme_color": "#ae5630",
+    "icons": [
+        {
+            "src": "favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}
