@@ -557,12 +557,12 @@ const BUDGET = [
 ];
 
 const TIPS = [
-    { icon: "🎨", title: "美術館預約", text: "地中美術館、豐島美術館務必提前1個月預約" },
-    { icon: "🧳", title: "3/9 行李", text: "早上出發前將大行李寄放 JR 高松站，效率最高" },
-    { icon: "🎫", title: "JR Pass 啟用", text: "3/9 從高松出發時啟用，可用至 3/13（共5日）" },
-    { icon: "⛴️", title: "船班天候", text: "瀨戶內海 3 月仍可能有強風，請關注當日運航資訊" },
-    { icon: "🧥", title: "穿著建議", text: "3 月氣溫約 8-15°C，建議洋蔥式穿搭" },
-    { icon: "⏰", title: "時刻確認", text: "以上時刻為參考，出發前請再確認最新班次" },
+    { icon: "art", title: "美術館預約", text: "地中美術館、豐島美術館務必提前1個月預約" },
+    { icon: "bag", title: "3/9 行李", text: "早上出發前將大行李寄放 JR 高松站，效率最高" },
+    { icon: "ticket", title: "JR Pass 啟用", text: "3/9 從高松出發時啟用，可用至 3/13（共5日）" },
+    { icon: "ferry", title: "船班天候", text: "瀨戶內海 3 月仍可能有強風，請關注當日運航資訊" },
+    { icon: "walk", title: "穿著建議", text: "3 月氣溫約 8-15°C，建議洋蔥式穿搭" },
+    { icon: "clock", title: "時刻確認", text: "以上時刻為參考，出發前請再確認最新班次" },
 ];
 
 const FERRY_SCHEDULE = [
@@ -596,25 +596,32 @@ const TICKET_CATEGORIES = [
     { id: "other", name: "其他", icon: "📄" },
 ];
 
-/* ───────── ICONS ───────── */
+/* ───────── ICONS (手繪風格單色線條) ───────── */
 const I = {
-    plane: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.7.5-1.1z" /></svg>,
-    train: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="3" width="16" height="16" rx="2" /><path d="M4 11h16" /><circle cx="8" cy="15" r="1" /><circle cx="16" cy="15" r="1" /></svg>,
-    bus: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="3" width="16" height="16" rx="3" /><path d="M4 12h16" /><circle cx="8" cy="16" r="1" /><circle cx="16" cy="16" r="1" /></svg>,
-    ferry: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a6 6 0 0 0 12 0 6 6 0 0 0 8 0" /><path d="M4 18l1.7-5.2A2 2 0 0 1 7.6 11h8.8a2 2 0 0 1 1.9 1.4L20 18" /><path d="M12 11V4" /><path d="M8 4h8" /></svg>,
-    bike: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="18.5" cy="17.5" r="3.5" /><circle cx="5.5" cy="17.5" r="3.5" /><circle cx="15" cy="5" r="1" /><path d="M12 17.5V14l-3-3 4-3 2 3h2" /></svg>,
-    walk: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="14" cy="4" r="2" /><path d="M9.5 21l2-5.5-2.5-1V10l3-3 3 3v3" /><path d="m14 21-1.5-6" /></svg>,
-    food: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 0 0-8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><path d="M6 1v3" /><path d="M10 1v3" /><path d="M14 1v3" /></svg>,
-    art: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.7-.7 1.7-1.5 0-.4-.2-.7-.4-1-.2-.3-.3-.6-.3-1 0-.8.7-1.5 1.5-1.5H16a6 6 0 0 0 6-6c0-5.5-4.5-9-10-9z" /></svg>,
-    pin: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></svg>,
-    star: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>,
-    hotel: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V7l8-4v18" /><path d="M19 21V11l-6-4" /><path d="M9 9h.01" /><path d="M9 12h.01" /><path d="M9 15h.01" /><path d="M9 18h.01" /></svg>,
-    bag: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>,
-    plus: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>,
-    image: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L9 18" /></svg>,
-    x: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18" /><path d="M6 6l12 12" /></svg>,
-    chevron: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    back: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.75 3.5L5.25 7L8.75 10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    plane: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16v-2a4 4 0 0 0-4-4H8l-4-6" /><path d="M3 18h3" /><path d="M6 12l-3 6" /><path d="M8 10V6c0-.55.45-1 1-1h2" /><path d="M14 10l7-3" /><path d="M10 18h11" /></svg>,
+    train: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 19V5c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14" /><path d="M6 11h12" /><path d="M6 7h12" /><circle cx="9" cy="15" r="1.5" /><circle cx="15" cy="15" r="1.5" /><path d="M7 19l-2 3" /><path d="M17 19l2 3" /></svg>,
+    bus: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18v2" /><path d="M19 18v2" /><path d="M5 18H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-1" /><path d="M16 18H8" /><path d="M2 10h20" /><circle cx="7" cy="14" r="1.5" /><circle cx="17" cy="14" r="1.5" /></svg>,
+    ferry: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 17c1.5 2 4 3 6 3s3.5-1 6-3c2.5 2 4.5 3 6 3" /><path d="M5 14l2-6h10l2 6" /><path d="M12 8V4" /><path d="M9 4h6" /></svg>,
+    bike: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="5.5" cy="17.5" r="3" /><circle cx="18.5" cy="17.5" r="3" /><path d="M12 17.5l-3.5-7 5-3.5" /><path d="M15.5 17.5l-3-10.5" /><circle cx="14" cy="5" r="1.5" /></svg>,
+    walk: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="4.5" r="2" /><path d="M7 21l3-9" /><path d="M15 21l-1-6" /><path d="M10 12l4-4" /><path d="M9.5 8l5 4" /></svg>,
+    food: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4v16" /><path d="M5 10c3 0 4-2 4-6" /><path d="M5 10c-3 0-4-2-4-6" /><path d="M19 4v16" /><path d="M19 9a3 3 0 0 1-3-3V4" /></svg>,
+    art: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3c-5 0-9 4-9 8.5 0 4 3 7.5 7 7.5h1.5c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5c0 0 8 0 8-7 0-5.5-3-12-7.5-12z" /><circle cx="8" cy="10" r="1.5" /><circle cx="12" cy="7" r="1.5" /><circle cx="16" cy="10" r="1.5" /></svg>,
+    pin: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>,
+    star: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l2.5 6.5L21 10l-5 4.5 1.5 6.5-5.5-3.5L6.5 21l1.5-6.5L3 10l6.5-.5L12 3z" /></svg>,
+    hotel: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V8l7-4 7 4v13" /><path d="M9 21v-5h6v5" /><path d="M10 10h.01" /><path d="M14 10h.01" /></svg>,
+    bag: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3" /><path d="M9 5a3 3 0 0 1 6 0" /><path d="M14 11h.01" /></svg>,
+    plus: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14" /><path d="M5 12h14" /></svg>,
+    image: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg>,
+    x: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18" /><path d="M6 6l12 12" /></svg>,
+    chevron: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3.5l4 3.5-4 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    back: <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3.5L5 7l4 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    // 新增手繪風格圖示
+    clock: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 6v6l4 2" /></svg>,
+    camera: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3.5" /></svg>,
+    ticket: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9a3 3 0 0 1 0 6v4h20v-4a3 3 0 0 1 0-6V5H2v4z" /><path d="M9 5v14" strokeDasharray="3 3" /></svg>,
+    museum: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V10" /><path d="M19 21V10" /><path d="M9 21v-6h6v6" /><path d="M12 3L3 10h18L12 3z" /></svg>,
+    calendar: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h18" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /></svg>,
+    info: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>,
 };
 
 function Chev({ open }) {
@@ -630,13 +637,23 @@ function Chev({ open }) {
 function Row({ row, last }) {
     const [open, setOpen] = useState(false);
     const ex = !!row.extra, pl = !!row.place;
+    const canExpand = ex && !pl; // 可展開條件：有 extra 且沒有地圖連結
+
+    const handleRowClick = () => {
+        if (ex) setOpen(!open);
+    };
+
     return (
         <div style={{ borderBottom: last ? "none" : "1px solid var(--ln)" }}>
-            <div style={{
-                display: "grid", gridTemplateColumns: "52px 20px 1fr auto",
-                alignItems: "start", gap: "0 6px", padding: "16px 18px",
-                background: row.hl ? "var(--hl)" : "transparent",
-            }}>
+            <div
+                onClick={canExpand ? handleRowClick : undefined}
+                style={{
+                    display: "grid", gridTemplateColumns: "52px 20px 1fr auto",
+                    alignItems: "start", gap: "0 6px", padding: "16px 18px",
+                    background: row.hl ? "var(--hl)" : "transparent",
+                    cursor: canExpand ? "pointer" : "default",
+                }}
+            >
                 <span style={{ fontSize: 13, fontWeight: 500, lineHeight: "22px", color: row.hl ? "var(--acc)" : "var(--mu)", fontFamily: "var(--mono)", textAlign: "right" }}>{row.time}</span>
                 <span style={{ color: row.hl ? "var(--acc)" : "var(--li)", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 2 }}>{I[row.ic] || I.pin}</span>
                 <div style={{ paddingLeft: 6 }}>
@@ -657,7 +674,7 @@ function Row({ row, last }) {
                     )}
                 </div>
                 {ex ? (
-                    <button onClick={() => setOpen(!open)} style={{ background: "none", border: "none", cursor: "pointer", width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--li)" }}>
+                    <button onClick={(e) => { e.stopPropagation(); setOpen(!open); }} style={{ background: "none", border: "none", cursor: "pointer", width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--li)" }}>
                         <Chev open={open} />
                     </button>
                 ) : <div style={{ width: 28 }} />}
@@ -836,6 +853,8 @@ function ItineraryTab({ onSelectDay }) {
 function DayDetail({ dayNum, onBack }) {
     const detail = DAYS_DETAIL[dayNum];
     const overview = DAYS_OVERVIEW.find(d => d.day === dayNum);
+    // 取得完整飯店資訊
+    const fullHotel = overview.hotel ? HOTELS.find(h => h.location === overview.hotel) : null;
 
     if (!detail) {
         return (
@@ -847,7 +866,7 @@ function DayDetail({ dayNum, onBack }) {
                     <p style={{ fontSize: 11, color: "var(--li)", letterSpacing: 1 }}>DAY {overview.day} — {overview.date}（{overview.weekday}）</p>
                     <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)", marginTop: 6 }}>{overview.title}</h2>
                     <p style={{ fontSize: 13, color: "var(--mu)", marginTop: 6 }}>{overview.route}</p>
-                    {overview.hotel && <p style={{ fontSize: 13, color: "var(--mu)", marginTop: 4 }}>🏨 住宿：{overview.hotel}</p>}
+                    {fullHotel && <p style={{ fontSize: 13, color: "var(--mu)", marginTop: 4 }}>🏨 住宿：{fullHotel.name}</p>}
                 </div>
                 <div style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", padding: "24px 20px", textAlign: "center", color: "var(--li)" }}>
                     <p style={{ fontSize: 14 }}>詳細行程開發中...</p>
@@ -869,15 +888,17 @@ function DayDetail({ dayNum, onBack }) {
                 </div>
                 <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)" }}>{detail.title}</h2>
 
-                {detail.hotelInfo && (
-                    <div style={{ marginTop: 12, padding: "10px 14px", background: "var(--card)", borderRadius: 10, boxShadow: "var(--shadow)", display: "flex", alignItems: "center", gap: 10 }}>
-                        <span style={{ fontSize: 18 }}>🏨</span>
-                        <div>
-                            <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t1)" }}>{detail.hotelInfo.name}</p>
-                            <p style={{ fontSize: 11, color: "var(--li)", marginTop: 1 }}>
-                                第 {detail.hotelInfo.night} 晚 / 共 {detail.hotelInfo.totalNights} 晚
-                                {detail.hotelInfo.breakfast && <span style={{ opacity: 0.7 }}>・含早餐</span>}
-                            </p>
+                {fullHotel && (
+                    <div style={{ marginTop: 12, padding: "12px 14px", background: "var(--card)", borderRadius: 10, boxShadow: "var(--shadow)", display: "flex", alignItems: "center", gap: 12 }}>
+                        <span style={{ fontSize: 20 }}>🏨</span>
+                        <div style={{ flex: 1 }}>
+                            <p style={{ fontSize: 14, fontWeight: 500, color: "var(--t1)", lineHeight: 1.4 }}>{fullHotel.name}</p>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: 4, fontSize: 11, color: "var(--li)" }}>
+                                <span>📍 {fullHotel.location}</span>
+                                <span>📅 {fullHotel.dates}</span>
+                                {detail.hotelInfo && <span>🌙 第 {detail.hotelInfo.night} / {detail.hotelInfo.totalNights} 晚</span>}
+                                {fullHotel.breakfast && <span>🍳 含早餐</span>}
+                            </div>
                         </div>
                     </div>
                 )}
@@ -1197,10 +1218,10 @@ function InfoTab() {
                             padding: "12px 16px",
                             borderBottom: i < TIPS.length - 1 ? "1px solid var(--ln)" : "none",
                         }}>
-                            <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t1)", marginBottom: 4 }}>
-                                <span style={{ marginRight: 8 }}>{tip.icon}</span>{tip.title}
+                            <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t1)", marginBottom: 4, display: "flex", alignItems: "center", gap: 8 }}>
+                                <span style={{ color: "var(--acc)" }}>{I[tip.icon]}</span>{tip.title}
                             </p>
-                            <p style={{ fontSize: 12, color: "var(--mu)", paddingLeft: 26 }}>{tip.text}</p>
+                            <p style={{ fontSize: 12, color: "var(--mu)", paddingLeft: 24 }}>{tip.text}</p>
                         </div>
                     ))}
                 </div>
@@ -1289,10 +1310,10 @@ export default function App() {
     useEffect(() => { ref.current?.scrollTo({ top: 0, behavior: "instant" }); }, [tab, selectedDay]);
 
     const tabs = [
-        { id: "itinerary", name: "行程", icon: "📅" },
-        { id: "tickets", name: "票券", icon: "🎫" },
-        { id: "hotels", name: "住宿", icon: "🏨" },
-        { id: "info", name: "資訊", icon: "ℹ️" },
+        { id: "itinerary", name: "行程", icon: "calendar" },
+        { id: "tickets", name: "票券", icon: "ticket" },
+        { id: "hotels", name: "住宿", icon: "hotel" },
+        { id: "info", name: "資訊", icon: "info" },
     ];
 
     return (
@@ -1367,7 +1388,7 @@ export default function App() {
                             alignItems: "center",
                             gap: 2,
                         }}>
-                            <span style={{ fontSize: 20 }}>{t.icon}</span>
+                            <span style={{ color: tab === t.id ? "var(--acc)" : "var(--li)" }}>{I[t.icon]}</span>
                             <span style={{
                                 fontSize: 11,
                                 fontWeight: 500,
