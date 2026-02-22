@@ -28,6 +28,47 @@ const I = {
     info: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>,
 };
 
+const NaoshimaSchedule = () => (
+    <div style={{ marginTop: 8, padding: "8px 0", borderTop: "1px dashed var(--ln)" }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+            {I.ferry} 直島渡輪時刻表 (3/8)
+        </p>
+        <div style={{ marginBottom: 12 }}>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "var(--t1)", marginBottom: 6 }}>高松港 ➝ 直島（宮浦）</p>
+            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 4 }}>▪ フェリー（約50分）</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, fontSize: 12, color: "var(--mu)", textAlign: "center", marginBottom: 8 }}>
+                <div style={{ padding: "6px 0", background: "var(--acc)", color: "#fff", borderRadius: 6, fontWeight: 600 }}>08:12 → 09:02</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>10:14 → 11:04</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>12:40 → 13:30</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>15:35 → 16:25</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>18:05 → 18:55</div>
+            </div>
+            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 4 }}>▪ 高速旅客船（約30分）</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, fontSize: 12, color: "var(--mu)", textAlign: "center" }}>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>07:20 → 07:50</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>09:20 → 09:50</div>
+            </div>
+        </div>
+        <div>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "var(--t1)", marginBottom: 6 }}>直島（宮浦）➝ 高松港</p>
+            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 4 }}>▪ フェリー（約60分）</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, fontSize: 12, color: "var(--mu)", textAlign: "center", marginBottom: 8 }}>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>07:00 → 08:00</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>09:07 → 10:07</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>11:30 → 12:30</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>14:20 → 15:20</div>
+                <div style={{ padding: "6px 0", background: "var(--acc)", color: "#fff", borderRadius: 6, fontWeight: 600 }}>17:00 → 18:00</div>
+            </div>
+            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 4 }}>▪ 高速旅客船（約30分）</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, fontSize: 12, color: "var(--mu)", textAlign: "center" }}>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>06:45 → 07:15</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>08:40 → 09:10</div>
+                <div style={{ padding: "6px 0", background: "var(--bg)", borderRadius: 6 }}>19:45 → 20:15</div>
+            </div>
+        </div>
+    </div>
+);
+
 const TeshimaSchedule = () => (
     <div style={{ marginTop: 8, padding: "8px 0", borderTop: "1px dashed var(--ln)" }}>
         <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
@@ -85,7 +126,7 @@ const DAYS_DETAIL = {
                     { time: "17:55", event: "抵達高松機場", info: "日本時間", ic: "pin" },
                     { time: "18:20", event: "高松機場出發", transport: "琴空巴士", info: "約45分・¥1,000", place: "高松空港", ic: "bus" },
                     { time: "19:05", event: "抵達JR高松站", place: "JR高松駅", ic: "train" },
-                    { time: "19:15", event: "Check in 小屋", ic: "hotel", extra: "寄放行李後出門覓食。" },
+                    { time: "19:15", event: "Check in 小屋", ic: "hotel", link: "https://maps.app.goo.gl/3fsUgHDWw7hRJTN59?g_st=ipc", extra: "寄放行李後出門覓食。" },
                     { time: "19:45", event: "晚餐：一鶴骨付鳥", place: "一鶴 高松店", ic: "food", extra: "招牌是帶骨雞腿，分嫩雞（若）和老雞（親）。建議點若搭白飯。營業到 22:00。" },
                     { time: "21:00", event: "返回住宿", ic: "hotel" },
                 ]
@@ -100,7 +141,7 @@ const DAYS_DETAIL = {
             {
                 title: "去程", rows: [
                     { time: "07:30", event: "前往渡輪售票處", info: "步行至高松港", ic: "walk", link: "https://maps.app.goo.gl/nVWkJZVxeUjQfhJE7?g_st=in", place: "高松港渡輪售票處", extra: "住宿到渡輪售票處導航" },
-                    { time: "08:12", event: "高松港出發", transport: "四國汽船｜渡輪", info: "約50分・¥530", hl: true, place: "高松港", ic: "ferry", extra: "建議上甲板看風景，到港前 10 分鐘回座位。" },
+                    { time: "08:12", event: "高松港出發", transport: "四國汽船｜渡輪", info: "約50分・¥530", hl: true, place: "高松港", ic: "ferry", extra: <NaoshimaSchedule /> },
                     { time: "09:02", event: "抵達直島宮浦港", place: "直島宮浦港", ic: "pin" },
                 ]
             },
@@ -119,7 +160,7 @@ const DAYS_DETAIL = {
             },
             {
                 title: "回程", rows: [
-                    { time: "17:00", event: "直島出發", transport: "四國汽船｜渡輪", info: "約60分・¥530", hl: true, ic: "ferry", extra: "最後一班渡輪，務必不要錯過！" },
+                    { time: "17:00", event: "直島出發", transport: "四國汽船｜渡輪", info: "約60分・¥530", hl: true, ic: "ferry", extra: <NaoshimaSchedule /> },
                     { time: "18:00", event: "抵達高松港", ic: "pin" },
                     { time: "18:30", event: "晚餐", ic: "food" },
                     { time: "20:00", event: "返回住宿", ic: "hotel", extra: "回小屋休息，明天要早起去豐島。" },
@@ -135,7 +176,7 @@ const DAYS_DETAIL = {
             {
                 title: "高松", collapsible: true, rows: [
                     { time: "08:00", event: "退房・寄放大行李", info: "JR高松站置物櫃", ic: "bag", extra: "大行李寄 JR 高松站置物櫃（¥600-800），只帶輕便背包去豐島。" },
-                    { time: "08:30", event: "前往高速船售票處", info: "步行約10分", ic: "walk", link: "https://maps.app.goo.gl/QSFYji95jdFp5rQWA?g_st=in", place: "高松港高速船售票處", extra: "⚠️ 注意：高速船與渡輪搭乘處不同（距離約 5 分鐘），請務必確認地點。" },
+                    { time: "08:30", event: "前往高速船售票處", info: "步行約10分", ic: "walk", link: "https://maps.app.goo.gl/85ELSehkVqCQZ9Mv7?g_st=ipc", place: "高松港高速船售票處", extra: "⚠️ 注意：高速船與渡輪搭乘處不同（距離約 5 分鐘），請務必確認地點。" },
                     { time: "09:07", event: "高松港出發", transport: "豐島渡輪｜高速船", info: "約35分・¥1,380", hl: true, place: "高松港", ic: "ferry", extra: <TeshimaSchedule /> },
                 ]
             },
@@ -161,7 +202,7 @@ const DAYS_DETAIL = {
                     { time: "19:32", event: "抵達JR岡山站", info: "約52分", place: "JR岡山駅", ic: "train" },
                     { time: "19:54", event: "JR岡山站出發", transport: "山陽新幹線 Sakura 569號", info: "鹿兒島中央行", hl: true, ic: "train" },
                     { time: "20:33", event: "抵達JR廣島站", place: "広島駅", ic: "pin" },
-                    { time: "20:50", event: "Check in 廣島格蘭比亞", place: "ホテルグランヴィア広島", ic: "hotel", extra: "飯店直通新幹線口，非常方便。" },
+                    { time: "20:50", event: "Check in 廣島格蘭比亞", place: "ホテルグランヴィア広島", ic: "hotel", link: "https://maps.app.goo.gl/9MYFbDsHVp9bmGDq9?g_st=ipc", extra: "飯店直通新幹線口，非常方便。" },
                     { time: "21:10", event: "晚餐", ic: "food" },
                 ]
             },
@@ -272,7 +313,7 @@ const DAYS_DETAIL = {
                     { time: "15:45", event: "抵達JR福山站", info: "約20分", ic: "train" },
                     { time: "16:05", event: "JR福山站出發", transport: "山陽新幹線｜さくら556號", info: "新大阪行", hl: true, ic: "train" },
                     { time: "16:25", event: "抵達JR岡山站", info: "約20分・JR Pass", place: "JR岡山駅", ic: "train" },
-                    { time: "17:00", event: "Check in 皇冠假日", ic: "hotel" },
+                    { time: "17:00", event: "Check in 皇冠假日", ic: "hotel", link: "https://maps.app.goo.gl/zUFgXM4CsvJ6Kowf7?g_st=ipc" },
                     { time: "18:00", event: "晚餐", ic: "food" },
                     { time: "20:00", event: "返回住宿", ic: "hotel" },
                 ]
@@ -480,7 +521,7 @@ const DAYS_DETAIL = {
                     { time: "15:45", event: "抵達JR福山站", info: "約20分", ic: "train" },
                     { time: "16:05", event: "JR福山站出發", transport: "山陽新幹線｜さくら556號", info: "新大阪行", hl: true, ic: "train" },
                     { time: "16:25", event: "抵達JR岡山站", info: "約20分・JR Pass", place: "JR岡山駅", ic: "train" },
-                    { time: "17:00", event: "Check in 皇冠假日", ic: "hotel", extra: "岡山 ANA 皇冠假日酒店。" },
+                    { time: "17:00", event: "Check in 皇冠假日", ic: "hotel", link: "https://maps.app.goo.gl/zUFgXM4CsvJ6Kowf7?g_st=ipc", extra: "岡山 ANA 皇冠假日酒店。" },
                     { time: "18:00", event: "晚餐：デミカツ丼", ic: "food", extra: "岡山名物炸豬排蓋飯。" },
                     { time: "20:30", event: "返回住宿", ic: "hotel" },
                 ]
@@ -576,15 +617,15 @@ const DAYS_DETAIL = {
 };
 
 const HOTELS = [
-    { name: "Airbnb 日本 Kagawa Takamatsu 的小屋", location: "高松", dates: "3/7 – 3/8", nights: 2, breakfast: false },
-    { name: "廣島南門格蘭比亞大飯店", location: "廣島", dates: "3/9 – 3/11", nights: 3, breakfast: true },
-    { name: "岡山 ANA 皇冠假日酒店", location: "岡山", dates: "3/12 – 3/14", nights: 3, breakfast: true },
+    { name: "Airbnb 日本 Kagawa Takamatsu 的小屋", location: "高松", dates: "3/7 – 3/8", nights: 2, breakfast: false, link: "https://maps.app.goo.gl/3fsUgHDWw7hRJTN59?g_st=ipc" },
+    { name: "廣島南門格蘭比亞大飯店", location: "廣島", dates: "3/9 – 3/11", nights: 3, breakfast: true, link: "https://maps.app.goo.gl/9MYFbDsHVp9bmGDq9?g_st=ipc" },
+    { name: "岡山 ANA 皇冠假日酒店", location: "岡山", dates: "3/12 – 3/14", nights: 3, breakfast: true, link: "https://maps.app.goo.gl/zUFgXM4CsvJ6Kowf7?g_st=ipc" },
 ];
 
 /* ───────── INFO TAB DATA ───────── */
 const CHECKLIST = [
-    { id: "chichu", text: "地中美術館門票預約", link: "https://www.e-tix.jp/chichu/", note: "1個月前開放" },
-    { id: "teshima", text: "豐島美術館門票預約", link: "https://www.e-tix.jp/teshima-artmuseum/", note: "1個月前開放" },
+    { id: "chichu", text: "地中美術館門票預約", note: "1個月前開放" },
+    { id: "teshima", text: "豐島美術館門票預約", note: "1個月前開放" },
     { id: "jrpass", text: "JR瀨戶內地區鐵路周遊券購買", note: "¥22,000/5日" },
     { id: "offline", text: "下載 Google Maps 離線地圖", note: "直島、豐島收訊弱" },
 ];
@@ -667,7 +708,7 @@ function Chev({ open }) {
 /* ───────── ROW COMPONENT ───────── */
 function Row({ row, last }) {
     const [open, setOpen] = useState(false);
-    const ex = !!row.extra, pl = !!row.place;
+    const ex = !!row.extra, pl = !!row.place || !!row.link;
     const canExpand = ex; // 可展開條件：有 extra
 
     const handleRowClick = () => {
@@ -903,10 +944,22 @@ function DayDetail({ dayNum, onBack }) {
     const overview = DAYS_OVERVIEW.find(d => d.day === dayNum);
     // 取得完整飯店資訊
     const fullHotel = overview.hotel ? HOTELS.find(h => h.location === overview.hotel) : null;
+    const [showFerry, setShowFerry] = useState(false);
+    const hasFerry = dayNum === 2 || dayNum === 3;
+
+    const touchStart = useRef(null);
+
+    const handleTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
+    const handleTouchEnd = (e) => {
+        if (touchStart.current === null) return;
+        const diff = e.changedTouches[0].clientX - touchStart.current;
+        if (diff > 80) onBack();
+        touchStart.current = null;
+    };
 
     if (!detail) {
         return (
-            <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }}>
+            <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
                 <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mu)", cursor: "pointer", padding: "12px 0", display: "flex", alignItems: "center", gap: 4 }}>
                     {I.back} 返回
                 </button>
@@ -914,7 +967,7 @@ function DayDetail({ dayNum, onBack }) {
                     <p style={{ fontSize: 11, color: "var(--li)", letterSpacing: 1 }}>DAY {overview.day} — {overview.date}（{overview.weekday}）</p>
                     <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)", marginTop: 6 }}>{overview.title}</h2>
                     <p style={{ fontSize: 13, color: "var(--mu)", marginTop: 6 }}>{overview.route}</p>
-                    {fullHotel && <p style={{ fontSize: 13, color: "var(--mu)", marginTop: 4 }}>🏨 住宿：{fullHotel.name}</p>}
+                    {fullHotel && <p style={{ fontSize: 13, color: "var(--mu)", marginTop: 4 }}>🏨 住宿：{fullHotel.link ? <a href={fullHotel.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{fullHotel.name} 📍</a> : fullHotel.name}</p>}
                 </div>
                 <div style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", padding: "24px 20px", textAlign: "center", color: "var(--li)" }}>
                     <p style={{ fontSize: 14 }}>詳細行程開發中...</p>
@@ -924,7 +977,7 @@ function DayDetail({ dayNum, onBack }) {
     }
 
     return (
-        <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }}>
+        <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mu)", cursor: "pointer", padding: "12px 0", display: "flex", alignItems: "center", gap: 4 }}>
                 {I.back} 返回
             </button>
@@ -934,13 +987,24 @@ function DayDetail({ dayNum, onBack }) {
                     <p style={{ fontSize: 11, color: "var(--li)", letterSpacing: 1 }}>DAY {detail.day} — {detail.date}（{detail.weekday}）</p>
                     {overview.jrpass && <span style={{ fontSize: 10, padding: "2px 6px", background: "var(--acc)", color: "#fff", borderRadius: 4 }}>JR Pass Day {overview.jrday}</span>}
                 </div>
-                <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)" }}>{detail.title}</h2>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--t1)", fontFamily: "var(--serif)" }}>{detail.title}</h2>
+                    {hasFerry && (
+                        <button onClick={() => setShowFerry(true)} style={{
+                            background: "var(--card)", border: "none", borderRadius: 10, boxShadow: "var(--shadow)",
+                            width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center",
+                            cursor: "pointer", color: "var(--acc)", fontSize: 18, flexShrink: 0,
+                        }}>
+                            {I.ferry}
+                        </button>
+                    )}
+                </div>
 
                 {fullHotel && (
                     <div style={{ marginTop: 12, padding: "12px 14px", background: "var(--card)", borderRadius: 10, boxShadow: "var(--shadow)", display: "flex", alignItems: "center", gap: 12 }}>
                         <span style={{ fontSize: 20 }}>🏨</span>
                         <div style={{ flex: 1 }}>
-                            <p style={{ fontSize: 14, fontWeight: 500, color: "var(--t1)", lineHeight: 1.4 }}>{fullHotel.name}</p>
+                            <p style={{ fontSize: 14, fontWeight: 500, color: "var(--t1)", lineHeight: 1.4 }}>{fullHotel.link ? <a href={fullHotel.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{fullHotel.name} 📍</a> : fullHotel.name}</p>
                             <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: 4, fontSize: 11, color: "var(--li)" }}>
                                 <span>📍 {fullHotel.location}</span>
                                 <span>📅 {fullHotel.dates}</span>
@@ -957,6 +1021,60 @@ function DayDetail({ dayNum, onBack }) {
             {detail.note && (
                 <div style={{ marginTop: 8, padding: "14px 18px", background: "var(--card)", borderRadius: 16, boxShadow: "var(--shadow)", fontSize: 13.5, color: "var(--mu)", lineHeight: 1.8 }}>
                     <span style={{ color: "var(--acc)" }}>💡</span>　{detail.note}
+                </div>
+            )}
+
+            {/* Ferry Info Modal */}
+            {showFerry && (
+                <div onClick={() => setShowFerry(false)} style={{
+                    position: "fixed", inset: 0, background: "rgba(0,0,0,.55)", zIndex: 999,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    animation: "fadeUp .2s ease", padding: 16,
+                }}>
+                    <div onClick={e => e.stopPropagation()} style={{
+                        background: "var(--card)", borderRadius: 18, width: "100%", maxWidth: 420,
+                        maxHeight: "85vh", overflow: "auto", boxShadow: "0 16px 48px rgba(0,0,0,.25)",
+                    }}>
+                        {/* Header */}
+                        <div style={{ padding: "16px 18px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--ln)" }}>
+                            <p style={{ fontSize: 15, fontWeight: 600, color: "var(--t1)", display: "flex", alignItems: "center", gap: 8 }}>
+                                {I.ferry} 船班資訊
+                            </p>
+                            <button onClick={() => setShowFerry(false)} style={{
+                                background: "none", border: "none", cursor: "pointer", color: "var(--li)", fontSize: 18, padding: 4,
+                            }}>{I.x}</button>
+                        </div>
+
+                        {/* Port Map */}
+                        <div style={{ padding: "12px 16px" }}>
+                            <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", marginBottom: 8 }}>📍 高松港碼頭地圖</p>
+                            <img
+                                src="/port-map.jpg"
+                                alt="高松港碼頭地圖"
+                                style={{ width: "100%", borderRadius: 10, border: "1px solid var(--ln)" }}
+                            />
+                        </div>
+
+                        {/* Timetable */}
+                        <div style={{ padding: "4px 16px 16px" }}>
+                            {dayNum === 2 && <NaoshimaSchedule />}
+                            {dayNum === 3 && <TeshimaSchedule />}
+                            <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
+                                {dayNum === 2 && (
+                                    <a href="https://www.shikokukisen.com/instant/#route01" target="_blank" rel="noopener noreferrer"
+                                        style={{ flex: 1, display: "block", textAlign: "center", fontSize: 11, padding: "8px 0", background: "var(--bg)", borderRadius: 8, color: "var(--acc)", textDecoration: "none", fontWeight: 500 }}>
+                                        四國汽船 官方時刻表 ↗
+                                    </a>
+                                )}
+                                {dayNum === 3 && (
+                                    <a href="https://t-ferry.com/schedule/" target="_blank" rel="noopener noreferrer"
+                                        style={{ flex: 1, display: "block", textAlign: "center", fontSize: 11, padding: "8px 0", background: "var(--bg)", borderRadius: 8, color: "var(--acc)", textDecoration: "none", fontWeight: 500 }}>
+                                        豐島渡輪 官方時刻表 ↗
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
@@ -1023,8 +1141,56 @@ function TicketsTab() {
                     <p style={{ fontSize: 12, color: "var(--mu)", marginTop: 2 }}>5日券 ¥17,000 · <span style={{ color: "var(--acc)" }}>3/9 – 3/13</span></p>
                 </div>
             </div>
-
             {/* Add Button */}
+
+            {/* Flight Cards */}
+            {[
+                { flight: "CI 0178", label: "去程", from: "TPE", fromName: "臺北(桃園)", fromTerminal: "第2航廈", to: "TAK", toName: "高松", toTerminal: null, date: "2026/03/07（六）", depart: "14:30", arrive: "17:55", duration: "2h25m" },
+                { flight: "CI 0179", label: "回程", from: "TAK", fromName: "高松", fromTerminal: null, to: "TPE", toName: "臺北(桃園)", toTerminal: "第2航廈", date: "2026/03/15（日）", depart: "18:55", arrive: "21:05", duration: "3h10m" },
+            ].map((f, i) => (
+                <div key={i} style={{ background: "var(--card)", borderRadius: 12, boxShadow: "var(--shadow)", marginBottom: 10, overflow: "hidden" }}>
+                    {/* Header */}
+                    <div style={{ padding: "9px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px dashed var(--ln)" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                            <div style={{
+                                width: 22, height: 22, borderRadius: 5,
+                                background: "linear-gradient(135deg, #1a3a5c 0%, #2d5a8e 100%)",
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                color: "#fff", flexShrink: 0, fontSize: 10,
+                            }}>{I.plane}</div>
+                            <span style={{ fontSize: 12, fontWeight: 600, color: "var(--t1)", letterSpacing: 0.5 }}>{f.flight}</span>
+                            <span style={{ fontSize: 9, padding: "2px 6px", background: i === 0 ? "var(--acc)" : "var(--li)", color: "#fff", borderRadius: 3, fontWeight: 500 }}>{f.label}</span>
+                        </div>
+                        <span style={{ fontSize: 10, color: "var(--mu)", fontFamily: "var(--mono)", letterSpacing: 0.3 }}>{f.date}</span>
+                    </div>
+                    {/* Route + Times */}
+                    <div style={{ padding: "12px 14px 14px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <div style={{ textAlign: "left", flex: 1 }}>
+                            <p style={{ fontSize: 18, fontWeight: 700, color: "var(--t1)", fontFamily: "var(--mono)", lineHeight: 1.2, letterSpacing: 1 }}>{f.from}</p>
+                            <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 5, lineHeight: 1.4 }}>{f.fromName}</p>
+                            {f.fromTerminal && <p style={{ fontSize: 9, color: "var(--li)", marginTop: 2 }}>{f.fromTerminal}</p>}
+                            <p style={{ fontSize: 14, fontWeight: 600, color: "var(--acc)", fontFamily: "var(--mono)", marginTop: 6, letterSpacing: 0.5 }}>{f.depart}</p>
+                        </div>
+                        <div style={{ flex: 0.8, display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 3, width: "100%" }}>
+                                <div style={{ flex: 1, height: 1, background: "var(--ln2)" }} />
+                                <span style={{ color: "var(--acc)", transform: "rotate(90deg)", display: "inline-block", fontSize: 10 }}>✈</span>
+                                <div style={{ flex: 1, height: 1, background: "var(--ln2)" }} />
+                            </div>
+                            <span style={{ fontSize: 9, color: "var(--li)", letterSpacing: 0.3 }}>{f.duration}</span>
+                        </div>
+                        <div style={{ textAlign: "right", flex: 1 }}>
+                            <p style={{ fontSize: 18, fontWeight: 700, color: "var(--t1)", fontFamily: "var(--mono)", lineHeight: 1.2, letterSpacing: 1 }}>{f.to}</p>
+                            <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 5, lineHeight: 1.4 }}>{f.toName}</p>
+                            {f.toTerminal && <p style={{ fontSize: 9, color: "var(--li)", marginTop: 2 }}>{f.toTerminal}</p>}
+                            <p style={{ fontSize: 14, fontWeight: 600, color: "var(--acc)", fontFamily: "var(--mono)", marginTop: 6, letterSpacing: 0.5 }}>{f.arrive}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+
+
+
             <button onClick={() => setShowAdd(true)} style={{
                 width: "100%", padding: "14px", background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)",
                 border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -1132,7 +1298,7 @@ function HotelsTab() {
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
                         <span style={{ color: "var(--acc)" }}>{I.hotel}</span>
                         <div style={{ flex: 1 }}>
-                            <p style={{ fontSize: 15, fontWeight: 600, color: "var(--t1)", lineHeight: 1.4 }}>{h.name}</p>
+                            <p style={{ fontSize: 15, fontWeight: 600, color: "var(--t1)", lineHeight: 1.4 }}>{h.link ? <a href={h.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{h.name} 📍</a> : h.name}</p>
                             <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px", marginTop: 8, fontSize: 12, color: "var(--mu)", alignItems: "center" }}>
                                 <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I.pin} {h.location}</span>
                                 <span style={{ display: "flex", alignItems: "center", gap: 4 }}>{I.calendar} {h.dates}</span>
@@ -1225,37 +1391,6 @@ function InfoTab() {
                 </div>
             </div>
 
-            {/* 預算估算 */}
-            <div style={{ marginBottom: 20 }}>
-                <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", padding: "0 4px 8px", letterSpacing: 0.3 }}>預算估算</p>
-                <div style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", overflow: "hidden" }}>
-                    {BUDGET.map((cat, ci) => (
-                        <div key={cat.category}>
-                            <p style={{ fontSize: 11, fontWeight: 500, color: "var(--li)", padding: "10px 16px 6px", background: "var(--bg)" }}>{cat.category}</p>
-                            {cat.items.map((item, i) => (
-                                <div key={i} style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    padding: "10px 16px",
-                                    borderBottom: "1px solid var(--ln)",
-                                }}>
-                                    <span style={{ fontSize: 13, color: "var(--t1)" }}>{item.name}</span>
-                                    <span style={{ fontSize: 13, color: "var(--mu)", fontFamily: "var(--mono)" }}>¥{item.price.toLocaleString()}</span>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "14px 16px",
-                        background: "var(--hl)",
-                    }}>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: "var(--t1)" }}>交通 + 門票 小計</span>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: "var(--acc)", fontFamily: "var(--mono)" }}>¥{totalBudget.toLocaleString()}</span>
-                    </div>
-                </div>
-            </div>
 
             {/* 重要提醒 */}
             <div style={{ marginBottom: 20 }}>
@@ -1289,24 +1424,88 @@ function InfoTab() {
                 </div>
                 {openSections.ferry && (
                     <div style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", overflow: "hidden" }}>
-                        {FERRY_SCHEDULE.map((f, i) => (
-                            <div key={i} style={{
-                                padding: "12px 16px",
-                                borderBottom: i < FERRY_SCHEDULE.length - 1 ? "1px solid var(--ln)" : "none",
-                            }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                                    <span style={{ fontSize: 11, color: "var(--li)" }}>{f.date}</span>
-                                    <span style={{ fontSize: 11, color: "var(--acc)", fontFamily: "var(--mono)" }}>{f.price}</span>
-                                </div>
-                                <p style={{ fontSize: 13, fontWeight: 500, color: "var(--t1)", marginBottom: 4 }}>{f.route}</p>
-                                <div style={{ display: "flex", gap: 8, fontSize: 12, color: "var(--mu)" }}>
-                                    <span style={{ fontFamily: "var(--mono)" }}>{f.depart}</span>
-                                    <span>→</span>
-                                    <span style={{ fontFamily: "var(--mono)" }}>{f.arrive}</span>
-                                    <span style={{ color: "var(--li)" }}>｜{f.company}</span>
-                                </div>
+
+                        {/* 直島 3/8 */}
+                        <div style={{ padding: "14px 16px", borderBottom: "1px solid var(--ln)" }}>
+                            <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                                {I.ferry} 高松 ↔ 直島（宮浦）
+                            </p>
+                            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 10 }}>3/8（日）・四國汽船　<a href="https://www.shikokukisen.com/instant/#route01" target="_blank" rel="noopener noreferrer" style={{ color: "var(--acc)", textDecoration: "none" }}>官方時刻表 →</a></p>
+
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "var(--t1)", marginBottom: 5 }}>高松港 ➝ 直島（宮浦）</p>
+                            <p style={{ fontSize: 9, color: "var(--li)", marginBottom: 4 }}>▪ フェリー（約50分・¥530）</p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, fontSize: 11, color: "var(--mu)", textAlign: "center", marginBottom: 6 }}>
+                                <div style={{ padding: "5px 0", background: "var(--acc)", color: "#fff", borderRadius: 5, fontWeight: 600 }}>08:12→09:02</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>10:14→11:04</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>12:40→13:30</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>15:35→16:25</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>18:05→18:55</div>
                             </div>
-                        ))}
+                            <p style={{ fontSize: 9, color: "var(--li)", marginBottom: 4 }}>▪ 高速旅客船（約30分）</p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, fontSize: 11, color: "var(--mu)", textAlign: "center", marginBottom: 12 }}>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>07:20→07:50</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>09:20→09:50</div>
+                            </div>
+
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "var(--t1)", marginBottom: 5 }}>直島（宮浦）➝ 高松港</p>
+                            <p style={{ fontSize: 9, color: "var(--li)", marginBottom: 4 }}>▪ フェリー（約60分・¥530）</p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, fontSize: 11, color: "var(--mu)", textAlign: "center", marginBottom: 6 }}>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>07:00→08:00</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>09:07→10:07</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>11:30→12:30</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>14:20→15:20</div>
+                                <div style={{ padding: "5px 0", background: "var(--acc)", color: "#fff", borderRadius: 5, fontWeight: 600 }}>17:00→18:00</div>
+                            </div>
+                            <p style={{ fontSize: 9, color: "var(--li)", marginBottom: 4 }}>▪ 高速旅客船（約30分）</p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, fontSize: 11, color: "var(--mu)", textAlign: "center" }}>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>06:45→07:15</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>08:40→09:10</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>19:45→20:15</div>
+                            </div>
+                        </div>
+
+                        {/* 豐島 3/9 */}
+                        <div style={{ padding: "14px 16px", borderBottom: "1px solid var(--ln)" }}>
+                            <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                                {I.ferry} 高松 ↔ 豐島（家浦）
+                            </p>
+                            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 10 }}>3/9（一）・豐島渡輪｜高速船・¥1,380　<a href="https://t-ferry.com/schedule/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--acc)", textDecoration: "none" }}>官方時刻表 →</a></p>
+
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "var(--t1)", marginBottom: 5, display: "flex", justifyContent: "space-between" }}>
+                                <span>高松港 ➝ 家浦港</span>
+                                <span style={{ color: "var(--li)", fontWeight: 400, fontSize: 10 }}>經由：直島（本村）</span>
+                            </p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, fontSize: 11, color: "var(--mu)", textAlign: "center", marginBottom: 12 }}>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>07:41→08:16</div>
+                                <div style={{ padding: "5px 0", background: "var(--acc)", color: "#fff", borderRadius: 5, fontWeight: 600 }}>09:07→09:57</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>16:25→17:00</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>18:03→18:38</div>
+                            </div>
+
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "var(--t1)", marginBottom: 5, display: "flex", justifyContent: "space-between" }}>
+                                <span>家浦港 ➝ 高松港</span>
+                                <span style={{ color: "var(--li)", fontWeight: 400, fontSize: 10 }}>經由：直島（本村）</span>
+                            </p>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5, fontSize: 11, color: "var(--mu)", textAlign: "center" }}>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>07:00→07:35</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>08:20→08:55</div>
+                                <div style={{ padding: "5px 0", background: "var(--bg)", borderRadius: 5 }}>15:10→16:00</div>
+                                <div style={{ padding: "5px 0", background: "var(--acc)", color: "#fff", borderRadius: 5, fontWeight: 600 }}>17:20→17:55</div>
+                            </div>
+                        </div>
+
+                        {/* 宮島 3/11 */}
+                        <div style={{ padding: "14px 16px" }}>
+                            <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t1)", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                                {I.ferry} 宮島口 ↔ 宮島
+                            </p>
+                            <p style={{ fontSize: 10, color: "var(--li)", marginBottom: 10 }}>3/11（三）・JR 宮島渡輪・JR Pass 適用・約10分</p>
+                            <p style={{ fontSize: 11, color: "var(--mu)", lineHeight: 1.6 }}>
+                                約 15 分一班，不需查時刻表。<br />
+                                去程搭 <strong style={{ color: "var(--t1)" }}>09:15</strong> 前後  ·  回程搭 <strong style={{ color: "var(--t1)" }}>16:00</strong> 前後
+                            </p>
+                        </div>
+
                     </div>
                 )}
             </div>
@@ -1344,6 +1543,38 @@ function InfoTab() {
                         ))}
                     </div>
                 )}
+            </div>
+
+            {/* 預算估算 */}
+            <div style={{ marginBottom: 20 }}>
+                <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", padding: "0 4px 8px", letterSpacing: 0.3 }}>預算估算</p>
+                <div style={{ background: "var(--card)", borderRadius: 14, boxShadow: "var(--shadow)", overflow: "hidden" }}>
+                    {BUDGET.map((cat, ci) => (
+                        <div key={cat.category}>
+                            <p style={{ fontSize: 11, fontWeight: 500, color: "var(--li)", padding: "10px 16px 6px", background: "var(--bg)" }}>{cat.category}</p>
+                            {cat.items.map((item, i) => (
+                                <div key={i} style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    padding: "10px 16px",
+                                    borderBottom: "1px solid var(--ln)",
+                                }}>
+                                    <span style={{ fontSize: 13, color: "var(--t1)" }}>{item.name}</span>
+                                    <span style={{ fontSize: 13, color: "var(--mu)", fontFamily: "var(--mono)" }}>¥{item.price.toLocaleString()}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: "14px 16px",
+                        background: "var(--hl)",
+                    }}>
+                        <span style={{ fontSize: 14, fontWeight: 600, color: "var(--t1)" }}>交通 + 門票 小計</span>
+                        <span style={{ fontSize: 14, fontWeight: 600, color: "var(--acc)", fontFamily: "var(--mono)" }}>¥{totalBudget.toLocaleString()}</span>
+                    </div>
+                </div>
             </div>
         </div>
     );
