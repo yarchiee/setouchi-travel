@@ -947,19 +947,9 @@ function DayDetail({ dayNum, onBack }) {
     const [showFerry, setShowFerry] = useState(false);
     const hasFerry = dayNum === 2 || dayNum === 3;
 
-    const touchStart = useRef(null);
-
-    const handleTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
-    const handleTouchEnd = (e) => {
-        if (touchStart.current === null) return;
-        const diff = e.changedTouches[0].clientX - touchStart.current;
-        if (diff > 80) onBack();
-        touchStart.current = null;
-    };
-
     if (!detail) {
         return (
-            <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+            <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }}>
                 <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mu)", cursor: "pointer", padding: "12px 0", display: "flex", alignItems: "center", gap: 4 }}>
                     {I.back} 返回
                 </button>
@@ -977,7 +967,7 @@ function DayDetail({ dayNum, onBack }) {
     }
 
     return (
-        <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+        <div style={{ paddingTop: 8, animation: "fadeUp .25s ease" }}>
             <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mu)", cursor: "pointer", padding: "12px 0", display: "flex", alignItems: "center", gap: 4 }}>
                 {I.back} 返回
             </button>
@@ -1047,12 +1037,14 @@ function DayDetail({ dayNum, onBack }) {
 
                         {/* Port Map */}
                         <div style={{ padding: "12px 16px" }}>
-                            <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", marginBottom: 8 }}>📍 高松港碼頭地圖</p>
-                            <img
-                                src="/port-map.jpg"
-                                alt="高松港碼頭地圖"
-                                style={{ width: "100%", borderRadius: 10, border: "1px solid var(--ln)" }}
-                            />
+                            <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", marginBottom: 8 }}>📍 高松港碼頭地圖 <span style={{ fontSize: 10, color: "var(--li)" }}>(雙指可放大)</span></p>
+                            <div style={{ overflow: "auto", WebkitOverflowScrolling: "touch", borderRadius: 10, border: "1px solid var(--ln)" }}>
+                                <img
+                                    src="/port-map.jpg"
+                                    alt="高松港碼頭地圖"
+                                    style={{ width: "100%", minWidth: 300, display: "block", touchAction: "pinch-zoom" }}
+                                />
+                            </div>
                         </div>
 
                         {/* Timetable */}
