@@ -945,7 +945,56 @@ function DayDetail({ dayNum, onBack }) {
     // 取得完整飯店資訊
     const fullHotel = overview.hotel ? HOTELS.find(h => h.location === overview.hotel) : null;
     const [showFerry, setShowFerry] = useState(false);
+    const [showMapFull, setShowMapFull] = useState(false);
     const hasFerry = dayNum === 2 || dayNum === 3;
+
+    // Pinch-to-zoom state for full-screen map
+    const mapScale = useRef(1);
+    const mapTranslate = useRef({ x: 0, y: 0 });
+    const pinchStart = useRef(null);
+    const panStart = useRef(null);
+    const lastTap = useRef(0);
+    const imgRef = useRef(null);
+
+    const getDistance = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    const updateTransform = () => {
+        if (imgRef.current) {
+            imgRef.current.style.transform = `translate(${mapTranslate.current.x}px, ${mapTranslate.current.y}px) scale(${mapScale.current})`;
+        }
+    };
+    const handleMapTouchStart = (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            pinchStart.current = { dist: getDistance(e.touches), scale: mapScale.current };
+        } else if (e.touches.length === 1 && mapScale.current > 1) {
+            panStart.current = { x: e.touches[0].clientX - mapTranslate.current.x, y: e.touches[0].clientY - mapTranslate.current.y };
+        }
+    };
+    const handleMapTouchMove = (e) => {
+        if (e.touches.length === 2 && pinchStart.current) {
+            e.preventDefault();
+            const newScale = Math.max(1, Math.min(5, pinchStart.current.scale * (getDistance(e.touches) / pinchStart.current.dist)));
+            mapScale.current = newScale;
+            updateTransform();
+        } else if (e.touches.length === 1 && panStart.current && mapScale.current > 1) {
+            mapTranslate.current = { x: e.touches[0].clientX - panStart.current.x, y: e.touches[0].clientY - panStart.current.y };
+            updateTransform();
+        }
+    };
+    const handleMapTouchEnd = (e) => {
+        pinchStart.current = null;
+        panStart.current = null;
+        if (mapScale.current <= 1.05) { mapScale.current = 1; mapTranslate.current = { x: 0, y: 0 }; updateTransform(); }
+        // Double-tap to toggle zoom
+        const now = Date.now();
+        if (e.changedTouches.length === 1 && now - lastTap.current < 300) {
+            if (mapScale.current > 1.1) { mapScale.current = 1; mapTranslate.current = { x: 0, y: 0 }; }
+            else { mapScale.current = 2.5; }
+            updateTransform();
+        }
+        lastTap.current = now;
+    };
+    const resetMapZoom = () => { mapScale.current = 1; mapTranslate.current = { x: 0, y: 0 }; };
 
     if (!detail) {
         return (
@@ -1014,6 +1063,33 @@ function DayDetail({ dayNum, onBack }) {
                 </div>
             )}
 
+            {/* Full-screen Map Viewer */}
+            {showMapFull && (
+                <div style={{
+                    position: "fixed", inset: 0, background: "rgba(0,0,0,.9)", zIndex: 1100,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    touchAction: "none",
+                }}
+                    onTouchStart={handleMapTouchStart}
+                    onTouchMove={handleMapTouchMove}
+                    onTouchEnd={handleMapTouchEnd}
+                >
+                    <button onClick={() => { setShowMapFull(false); resetMapZoom(); }} style={{
+                        position: "absolute", top: 16, right: 16, zIndex: 1101,
+                        background: "rgba(255,255,255,.15)", border: "none", borderRadius: 20,
+                        width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center",
+                        cursor: "pointer", color: "#fff", fontSize: 18,
+                    }}>{I.x}</button>
+                    <p style={{ position: "absolute", bottom: 20, left: 0, right: 0, textAlign: "center", color: "rgba(255,255,255,.5)", fontSize: 11 }}>雙指縮放 · 雙擊放大 · 點 ✕ 關閉</p>
+                    <img
+                        ref={imgRef}
+                        src="/port-map.jpg"
+                        alt="高松港碼頭地圖"
+                        style={{ maxWidth: "95vw", maxHeight: "85vh", borderRadius: 8, transformOrigin: "center center", transition: "transform .15s ease" }}
+                    />
+                </div>
+            )}
+
             {/* Ferry Info Modal */}
             {showFerry && (
                 <div onClick={() => setShowFerry(false)} style={{
@@ -1035,16 +1111,15 @@ function DayDetail({ dayNum, onBack }) {
                             }}>{I.x}</button>
                         </div>
 
-                        {/* Port Map */}
+                        {/* Port Map - click to open full-screen viewer */}
                         <div style={{ padding: "12px 16px" }}>
-                            <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", marginBottom: 8 }}>📍 高松港碼頭地圖 <span style={{ fontSize: 10, color: "var(--li)" }}>(雙指可放大)</span></p>
-                            <div style={{ overflow: "auto", WebkitOverflowScrolling: "touch", borderRadius: 10, border: "1px solid var(--ln)" }}>
-                                <img
-                                    src="/port-map.jpg"
-                                    alt="高松港碼頭地圖"
-                                    style={{ width: "100%", minWidth: 300, display: "block", touchAction: "pinch-zoom" }}
-                                />
-                            </div>
+                            <p style={{ fontSize: 12, fontWeight: 500, color: "var(--mu)", marginBottom: 8 }}>📍 高松港碼頭地圖 <span style={{ fontSize: 10, color: "var(--li)" }}>(點擊放大)</span></p>
+                            <img
+                                src="/port-map.jpg"
+                                alt="高松港碼頭地圖"
+                                onClick={() => setShowMapFull(true)}
+                                style={{ width: "100%", borderRadius: 10, border: "1px solid var(--ln)", display: "block", cursor: "pointer" }}
+                            />
                         </div>
 
                         {/* Timetable */}
